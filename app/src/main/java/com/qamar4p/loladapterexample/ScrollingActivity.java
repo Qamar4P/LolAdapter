@@ -2,27 +2,29 @@ package com.qamar4p.loladapterexample;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.qamar4p.lol_adapter.ItemViewClickListener;
 import com.qamar4p.lol_adapter.LolAdapter;
 import com.qamar4p.lol_adapter.LolTypeAdapter;
+import com.qamar4p.lol_adapter.LolViewHold;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
-public class ScrollingActivity extends AppCompatActivity {
-
+/**
+ * @author Qamar4P
+ */
+public class ScrollingActivity extends BaseActivity{
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -39,29 +41,33 @@ public class ScrollingActivity extends AppCompatActivity {
         loadData();
     }
 
+    @OnClick(R.id.fab)
+    public void tapOnFab(View view){
+        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+    }
+
     private void setupUi() {
         recyclerView.setAdapter(adapter);
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(view -> Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show());
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_scrolling, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_single_view_type) {
+            recyclerView.setAdapter(adapter);
+            return true;
+        }
+        if (id == R.id.action_multi_view_type) {
+            recyclerView.setAdapter(typeAdapter);
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -72,8 +78,15 @@ public class ScrollingActivity extends AppCompatActivity {
         data.add(new ItemModel());
         data.add(new ItemModel());
         data.add(new ItemModel());
+        data.add(new ItemModel());
+        data.add(new ItemModel());
+        data.add(new ItemModel());
+        data.add(new ItemModel());
+        data.add(new ItemModel());
+        data.add(new ItemModel());
 
         adapter.items.addAll(data);
+        typeAdapter.items.addAll(data);
     }
 
     @NonNull
@@ -88,15 +101,20 @@ public class ScrollingActivity extends AppCompatActivity {
         };
     }
 
-    final LolAdapter<LolAdapter.ViewHold, ItemModel> adapter = new LolTypeAdapter<LolAdapter.ViewHold, ItemModel>(position -> position > 3 ? 0 : 1,itemViewClickListener(),VH::new,VH2::new);
+    LolAdapter<ItemView, ItemModel> adapter = new LolAdapter<>(itemViewClickListener(),ItemView::new);
+    LolAdapter<LolViewHold<ItemModel>, ItemModel>
+            typeAdapter = new LolTypeAdapter<>(itemViewClickListener()
+            ,position -> position == 0 || position == 4 ? 0 : 1,
+            ItemHeaderView::new,
+            ItemView::new);
 
-    class VH2 extends LolAdapter.ViewHold<ItemModel>{
+    class ItemView extends LolViewHold<ItemModel> {
         @BindView(R.id.textTitle)
         TextView textTitle;
         @BindView(R.id.textDesc)
         TextView textDesc;
 
-        VH2(ViewGroup parent) {
+        ItemView(ViewGroup parent) {
             super(parent,R.layout.list_item);
         }
         @Override
@@ -104,23 +122,18 @@ public class ScrollingActivity extends AppCompatActivity {
             textTitle.setText(data.fullName+" "+getAdapterPosition());
             textDesc.setText(data.location);
         }
-
     }
 
-    class VH extends LolAdapter.ViewHold<ItemModel>{
+    class ItemHeaderView extends LolViewHold<ItemModel> {
         @BindView(R.id.textTitle)
         TextView textTitle;
-        @BindView(R.id.textDesc)
-        TextView textDesc;
 
-        VH(ViewGroup parent) {
-            super(parent,R.layout.list_item);
+        ItemHeaderView(ViewGroup parent) {
+            super(parent,R.layout.list_item2);
         }
         @Override
         public void bind() {
             textTitle.setText(data.fullName+" "+getAdapterPosition());
-            textDesc.setText(data.location);
         }
-
     }
 }

@@ -11,15 +11,21 @@ import java.util.List;
 
 import butterknife.ButterKnife;
 
-public abstract class LolAdapter<VH extends LolAdapter.ViewHold,D> extends RecyclerView.Adapter<VH>{
+/**
+ * Created by Qamar4P on 3/5/2018.
+ *
+ * @author qamar.dev@gmail.com
+ */
+public class LolAdapter<VH extends LolViewHold<D>,D> extends RecyclerView.Adapter<VH>{
 
-    private final ItemViewClickListener<D> viewClickListener;
-    private final ViewHolderCreator<VH> viewHolderCreator;
     public List<D> items = new ArrayList<>();
 
-    public LolAdapter(ViewHolderCreator<VH> viewHolderCreator,ItemViewClickListener<D> itemViewClickListener){
-        this.viewHolderCreator = viewHolderCreator;
+    protected ViewHolderCreator<VH> viewHolderCreator;
+    protected final ItemViewClickListener<D> viewClickListener;
+
+    public LolAdapter(ItemViewClickListener<D> itemViewClickListener,ViewHolderCreator<VH> viewHolderCreator){
         this.viewClickListener = itemViewClickListener;
+        this.viewHolderCreator = viewHolderCreator;
     }
 
     @Override
@@ -37,28 +43,5 @@ public abstract class LolAdapter<VH extends LolAdapter.ViewHold,D> extends Recyc
     @Override
     public int getItemCount() {
         return items.size();
-    }
-
-    public static abstract class ViewHold<T> extends RecyclerView.ViewHolder{
-        public ItemViewClickListener<T> viewClickListener;
-        public T data;
-        public ViewHold(ViewGroup parent,@LayoutRes int viewResId) {
-            super(LayoutInflater.from(parent.getContext()).inflate(viewResId, parent, false));
-            itemView.setOnClickListener(v -> {
-                viewClicked(v);
-                if(viewClickListener != null) {
-                    viewClickListener.onViewClicked(v, data, getAdapterPosition());
-                }
-            });
-            ButterKnife.bind(this,itemView);
-        }
-
-        protected void viewClicked(View v){}
-
-        void bind(T data) {
-            this.data = data;
-            bind();
-        }
-        public abstract void bind();
     }
 }

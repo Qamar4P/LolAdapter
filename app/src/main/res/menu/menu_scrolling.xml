@@ -3,8 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.qamar4p.locopixel.loladapterexample.ScrollingActivity">
     <item
-        android:id="@+id/action_settings"
+        android:id="@+id/action_single_view_type"
         android:orderInCategory="100"
-        android:title="@string/action_settings"
+        android:title="@string/action_single_view_type"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/action_multi_view_type"
+        android:orderInCategory="100"
+        android:title="@string/action_multi_view_type"
         app:showAsAction="never" />
 </menu>
