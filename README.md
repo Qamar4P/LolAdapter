@@ -94,4 +94,4 @@ class ItemView extends LolViewHold<ItemModel> {
 That's it
 
 
-![Scrennshot](https://github.com/Qamar4P/LolAdapterExample/screens/blob/master/demo.jpg)
+![Scrennshot](https://github.com/Qamar4P/LolAdapterExample/screens/blob/master/demo.png)
