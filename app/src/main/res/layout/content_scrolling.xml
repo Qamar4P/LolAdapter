@@ -15,8 +15,6 @@
         android:clipToPadding="false"
         android:paddingTop="@dimen/standard_wall_space"
         android:paddingBottom="@dimen/standard_wall_space"
-        android:paddingEnd="@dimen/standard_wall_space"
-        android:paddingStart="@dimen/standard_wall_space"
         app:layoutManager="LinearLayoutManager"
         tools:listitem="@layout/list_item" />
 
