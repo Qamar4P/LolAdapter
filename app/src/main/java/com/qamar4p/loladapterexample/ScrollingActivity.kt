@@ -10,6 +10,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 
 import java.util.ArrayList
 
@@ -96,6 +97,7 @@ class ScrollingActivity : BaseActivity() {
                 when (v.getId()) {
                     R.id.buttonCall -> startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + AUTHOR_CELL)))
                     else -> {
+                        Toast.makeText(baseContext,"Item "+position,Toast.LENGTH_SHORT).show();
                     }
                 }
             }

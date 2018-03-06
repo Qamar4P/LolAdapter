@@ -23,7 +23,7 @@ open class LolAdapter<D, VH : LolViewHold<D>>(private val viewClickListener: Ite
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
         val vh = viewHolderCreator.invoke(parent)
-//        vh.viewClickListener = viewClickListener
+        vh.viewClickListener = viewClickListener
         return vh
     }
 

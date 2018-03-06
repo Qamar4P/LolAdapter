@@ -1,5 +1,5 @@
 # LolAdapterExample
-Demo project to showcase my stupid simple LolAdapter for recycler view
+Demo project to showcase my stupid simple LolAdapter for recycler view also avail in Kotlin, check out branch
 
 This library use Java8 Lambdas and depends ButterKnife optional
 
