@@ -25,7 +25,7 @@
             android:maxLength="60"
             android:paddingTop="4dp"
             android:textAlignment="center"
-            android:textColor="#000"
+            android:textColor="#ff0000"
             android:textSize="18sp"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="Name here" />
@@ -39,10 +39,23 @@
             tools:text="Address"
             android:paddingBottom="4dp"
             android:textAlignment="center"
-            android:textColor="#333"
+            android:textColor="#a552ff"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/textTitle"
             app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+
+        <Button
+            android:id="@+id/buttonCall"
+            android:layout_width="80dp"
+            android:layout_height="45dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="#0cf100"
+            android:text="@string/call"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </android.support.constraint.ConstraintLayout>

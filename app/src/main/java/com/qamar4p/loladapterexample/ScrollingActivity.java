@@ -1,5 +1,7 @@
 package com.qamar4p.loladapterexample;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -26,6 +28,7 @@ import butterknife.OnClick;
  */
 public class ScrollingActivity extends BaseActivity{
 
+    public static final String AUTHOR_CELL = "+923088006866";
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     @BindView(R.id.toolbar)
@@ -43,8 +46,7 @@ public class ScrollingActivity extends BaseActivity{
 
     @OnClick(R.id.fab)
     public void tapOnFab(View view){
-        Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
+        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("smsto:"+ AUTHOR_CELL)));
     }
 
     private void setupUi() {
@@ -93,7 +95,8 @@ public class ScrollingActivity extends BaseActivity{
     private ItemViewClickListener<ItemModel> itemViewClickListener() {
         return (v, item, position) -> {
             switch (v.getId()) {
-                case R.id.textTitle:
+                case R.id.buttonCall:
+                    startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:"+ AUTHOR_CELL)));
                     break;
                 default:
                     break;
@@ -101,26 +104,35 @@ public class ScrollingActivity extends BaseActivity{
         };
     }
 
-    LolAdapter<ItemView, ItemModel> adapter = new LolAdapter<>(itemViewClickListener(),ItemView::new);
-    LolAdapter<LolViewHold<ItemModel>, ItemModel>
+    LolAdapter<ItemModel,ItemViewHold> adapter = new LolAdapter<>(itemViewClickListener(), ItemViewHold::new);
+
+    /**
+     * recycle view adapter for multiple view types
+     */
+    LolAdapter<ItemModel,LolViewHold<ItemModel>>
             typeAdapter = new LolTypeAdapter<>(itemViewClickListener()
             ,position -> position == 0 || position == 4 ? 0 : 1,
             ItemHeaderView::new,
-            ItemView::new);
+            ItemViewHold::new);
 
-    class ItemView extends LolViewHold<ItemModel> {
+    class ItemViewHold extends LolViewHold<ItemModel> {
         @BindView(R.id.textTitle)
         TextView textTitle;
         @BindView(R.id.textDesc)
         TextView textDesc;
 
-        ItemView(ViewGroup parent) {
+        ItemViewHold(ViewGroup parent) {
             super(parent,R.layout.list_item);
         }
         @Override
         public void bind() {
             textTitle.setText(data.fullName+" "+getAdapterPosition());
             textDesc.setText(data.location);
+        }
+
+        @OnClick({R.id.buttonCall})
+        public void tapOnView(View v){
+            viewClickListener.onViewClicked(v,data,getAdapterPosition());
         }
     }
 
@@ -131,6 +143,7 @@ public class ScrollingActivity extends BaseActivity{
         ItemHeaderView(ViewGroup parent) {
             super(parent,R.layout.list_item2);
         }
+
         @Override
         public void bind() {
             textTitle.setText(data.fullName+" "+getAdapterPosition());

@@ -1,6 +1,8 @@
 package com.qamar4p.lol_adapter;
 
 import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,14 +18,14 @@ import butterknife.ButterKnife;
  *
  * @author qamar.dev@gmail.com
  */
-public class LolAdapter<VH extends LolViewHold<D>,D> extends RecyclerView.Adapter<VH>{
+public class LolAdapter<D,VH extends LolViewHold<D>> extends RecyclerView.Adapter<VH>{
 
     public List<D> items = new ArrayList<>();
 
-    protected ViewHolderCreator<VH> viewHolderCreator;
-    protected final ItemViewClickListener<D> viewClickListener;
+    ViewHolderCreator<VH> viewHolderCreator;
+    private final ItemViewClickListener<D> viewClickListener;
 
-    public LolAdapter(ItemViewClickListener<D> itemViewClickListener,ViewHolderCreator<VH> viewHolderCreator){
+    public LolAdapter(@Nullable ItemViewClickListener<D> itemViewClickListener, @NonNull ViewHolderCreator<VH> viewHolderCreator){
         this.viewClickListener = itemViewClickListener;
         this.viewHolderCreator = viewHolderCreator;
     }

@@ -22,18 +22,18 @@ This library use Java8 Lambdas and depends ButterKnife optional
 ##### Code
 ```
 ...
-LolAdapter<ItemView, ItemModel> adapter = new LolAdapter<>(itemViewClickListener(),ItemView::new);
+LolAdapter<ItemModel,ItemViewHold> adapter = new LolAdapter<>(itemViewClickListener(),ItemViewHold::new);
 adapter.items.addAll(data);
 recyclerView.setAdapter(typeAdapter);
 ...
 
-class ItemView extends LolViewHold<ItemModel> {
+class ItemViewHold extends LolViewHold<ItemModel> {
         @BindView(R.id.textTitle)
         TextView textTitle;
         @BindView(R.id.textDesc)
         TextView textDesc;
 
-        ItemView(ViewGroup parent) {
+        ItemViewHold(ViewGroup parent) {
             super(parent,R.layout.list_item);
         }
         @Override
@@ -51,36 +51,20 @@ That's it
 ##### Code
 ```
 ...
-LolAdapter<LolViewHold<ItemModel>, ItemModel>
+LolAdapter<ItemModel, LolViewHold<ItemModel>>
             typeAdapter = new LolTypeAdapter<>(itemViewClickListener()
             ,position -> position == 0 || position == 4 ? 0 : 1,
-            ItemHeaderView::new,
-            ItemView::new);
+            HeaderViewHold::new,
+            ItemViewHold::new);
 adapter.items.addAll(data);
 recyclerView.setAdapter(typeAdapter);
 ...
 
-class ItemView extends LolViewHold<ItemModel> {
-        @BindView(R.id.textTitle)
-        TextView textTitle;
-        @BindView(R.id.textDesc)
-        TextView textDesc;
-
-        ItemView(ViewGroup parent) {
-            super(parent,R.layout.list_item);
-        }
-        @Override
-        public void bind() {
-            textTitle.setText(data.fullName+" "+getAdapterPosition());
-            textDesc.setText(data.location);
-        }
-    }
-
-    class ItemHeaderView extends LolViewHold<ItemModel> {
+    class HeaderViewHold extends LolViewHold<ItemModel> {
         @BindView(R.id.textTitle)
         TextView textTitle;
 
-        ItemHeaderView(ViewGroup parent) {
+        HeaderViewHold(ViewGroup parent) {
             super(parent,R.layout.list_item2);
         }
         @Override

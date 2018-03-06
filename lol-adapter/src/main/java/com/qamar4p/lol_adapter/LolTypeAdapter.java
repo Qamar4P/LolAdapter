@@ -1,28 +1,22 @@
 package com.qamar4p.lol_adapter;
 
-import android.support.annotation.LayoutRes;
-import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
+import android.support.annotation.NonNull;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.ButterKnife;
 
 /**
  * Created by Qamar4P on 3/5/2018.
  *
  * @author qamar.dev@gmail.com
  */
-public class LolTypeAdapter<VH extends LolViewHold<D>,D> extends LolAdapter<VH,D>{
+public class LolTypeAdapter<D,VH extends LolViewHold<D>> extends LolAdapter<D,VH>{
 
     private final ViewHolderCreator<VH> viewHolderCreators[];
-    private final WhatItemViewType whatItemViewType;
-    public List<D> items = new ArrayList<>();
+    private final DefineItemViewType whatItemViewType;
 
-    public LolTypeAdapter(ItemViewClickListener<D> itemClickListener,WhatItemViewType whatItemType, ViewHolderCreator<VH>... viewHolderCreators){
+    public LolTypeAdapter(ItemViewClickListener<D> itemClickListener, @NonNull DefineItemViewType whatItemType,@NonNull ViewHolderCreator<VH>... viewHolderCreators){
         super(itemClickListener, viewHolderCreators[0]);
         this.whatItemViewType = whatItemType;
         this.viewHolderCreators = viewHolderCreators;

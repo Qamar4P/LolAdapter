@@ -91,4 +91,5 @@
     </string>
     <string name="action_single_view_type">Single View Type</string>
     <string name="action_multi_view_type">Multiple View Type</string>
+    <string name="call">Call</string>
 </resources>
