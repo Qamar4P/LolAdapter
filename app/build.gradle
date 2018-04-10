@@ -1,11 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion projectCompileSdkVersion
     defaultConfig {
-        applicationId "com.example.locopixel.loladapterexample"
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        applicationId "com.qamar.kust.loladapterexample"
+        minSdkVersion projectMinSdkVersion
+        targetSdkVersion projectTargetSdkVersion
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -29,9 +29,9 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     //support libs
-    implementation "com.android.support:appcompat-v7:" + rootProject.ext.supportLibVersion
-    implementation 'com.android.support:design:' + rootProject.ext.supportLibVersion
-    implementation 'com.android.support:cardview-v7:' + rootProject.ext.supportLibVersion
+    implementation "com.android.support:appcompat-v7:" + projectSupportLibVersion
+    implementation 'com.android.support:design:' + projectSupportLibVersion
+    implementation 'com.android.support:cardview-v7:' + projectSupportLibVersion
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
     //external tools and utility lib
     implementation 'com.jakewharton:butterknife:8.8.1'

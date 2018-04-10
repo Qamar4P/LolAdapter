@@ -1,11 +1,18 @@
 apply plugin: 'com.android.library'
+apply plugin: 'maven-publish'
+
+ext {
+    PUBLISH_GROUP_ID = 'com.qamar4p.lol-adapter'
+    PUBLISH_ARTIFACT_ID = 'com.qamar4p.lol-adapter'
+    PUBLISH_VERSION = '0.3'
+}
 
 android {
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdkVersion projectCompileSdkVersion
 
     defaultConfig {
-        minSdkVersion rootProject.ext.minSdkVersion
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        minSdkVersion projectMinSdkVersion
+        targetSdkVersion projectTargetSdkVersion
         versionCode 1
         versionName "0.1"
 
@@ -34,9 +41,11 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 
-    implementation "com.android.support:appcompat-v7:$rootProject.ext.supportLibVersion"
-    implementation "com.android.support:recyclerview-v7:$rootProject.ext.supportLibVersion"
+    implementation "com.android.support:appcompat-v7:$projectSupportLibVersion"
+    implementation "com.android.support:recyclerview-v7:$projectSupportLibVersion"
 
     implementation 'com.jakewharton:butterknife:8.8.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 }
+
+apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
